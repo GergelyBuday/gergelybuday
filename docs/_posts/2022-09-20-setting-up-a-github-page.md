@@ -46,6 +46,13 @@ You need to verify your domain with Github Pages, see [Verifying a domain for yo
 
 You need to set A, AAAA and TXT records through your domain registrar's domain administration page.
 
+For checking your TXT record, modify this accordingly:
+
+```
+$ dig _github-pages-challenge-gergelybuday.formalisation.org +nostats +nocomments +nocmd TXT
+```
+with adequate username and domain name.
+
 [jekyll-docs]: https://jekyllrb.com/docs/home
 [jekyll-gh]:   https://github.com/jekyll/jekyll
 [jekyll-talk]: https://talk.jekyllrb.com/
