@@ -40,7 +40,7 @@ formalisation.org.      3600    IN      AAAA    2606:50c0:8001::153
 formalisation.org.      3600    IN      AAAA    2606:50c0:8002::153
 formalisation.org.      3600    IN      AAAA    2606:50c0:8003::153
 ```
-
+The current IP addresses are at [Configuring an apex domain](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site#configuring-an-apex-domain) on docs.github.com.
 
 
 [jekyll-docs]: https://jekyllrb.com/docs/home
