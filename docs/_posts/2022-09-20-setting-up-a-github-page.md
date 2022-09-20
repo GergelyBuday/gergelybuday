@@ -8,9 +8,9 @@ categories: technical
 For running a GitHub pages blog, you need mainly these:
 
 - setting A, AAAA and TXT records for your domain name
+- install Ruby, Bundler and Jekyll on your machine
 - creating a GitHub repository with your username as a name
 - set it up for GitHub Pages
-- install Ruby and Jekyll on your machine
 - create the file structure in your repository's docs directory with Jekyll
 - configure basic texts about your blog and the About page
 - create your first post 
@@ -53,9 +53,15 @@ $ dig _github-pages-challenge-gergelybuday.formalisation.org +nostats +nocomment
 ```
 with adequate username and domain name.
 
+# Installing Ruby, Bundler and Jekyll
+
+Ruby is a popular programming environment for websites. Its plugins are called gems, and an uncautious installation of these can lead to a Dependency Hell.
+
 # Creating a GitHub Pages site
 
 For this, follow [Creating a GitHub Pages site with Jekyll](https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/creating-a-github-pages-site-with-jekyll) on docs.github.com .
+
+
 
 [jekyll-docs]: https://jekyllrb.com/docs/home
 [jekyll-gh]:   https://github.com/jekyll/jekyll
