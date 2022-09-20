@@ -49,7 +49,7 @@ You need to set A, AAAA and TXT records through your domain registrar's domain a
 For checking your TXT record, modify this accordingly:
 
 ```
-$ dig _github-pages-challenge-gergelybuday.formalisation.org +nostats +nocomments +nocmd TXT
+$ dig _github-pages-challenge-username.domain.name +nostats +nocomments +nocmd TXT
 ```
 with adequate username and domain name.
 
