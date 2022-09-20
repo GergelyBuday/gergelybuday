@@ -53,6 +53,10 @@ $ dig _github-pages-challenge-gergelybuday.formalisation.org +nostats +nocomment
 ```
 with adequate username and domain name.
 
+# Creating a GitHub Pages site
+
+For this, follow [Creating a GitHub Pages site with Jekyll](https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/creating-a-github-pages-site-with-jekyll) on docs.github.com .
+
 [jekyll-docs]: https://jekyllrb.com/docs/home
 [jekyll-gh]:   https://github.com/jekyll/jekyll
 [jekyll-talk]: https://talk.jekyllrb.com/
