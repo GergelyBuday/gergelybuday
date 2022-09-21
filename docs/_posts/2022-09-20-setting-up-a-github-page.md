@@ -55,7 +55,9 @@ with adequate username and domain name.
 
 # Installing Ruby, Bundler and Jekyll
 
-Ruby is a popular programming environment for websites. Its plugins are called gems, and an uncautious installation of these can lead to a Dependency Hell.
+Ruby is a popular programming environment for websites. Its plugins are called gems, and an uncautious installation of these can lead to Dependency Hell.
+
+To avoid this, use [Installing Ruby On Rails on Ubuntu](https://gorails.com/setup/ubuntu/22.04) description on gorails.com, until installing Bundler.
 
 # Creating a GitHub Pages site
 
