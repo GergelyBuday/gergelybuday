@@ -3,6 +3,7 @@ layout: post
 title:  "Setting up a Github Page"
 date:   2022-09-20 
 categories: technical 
+permalink: setting-up-a-github-page
 ---
 
 For running a GitHub Pages blog, you need mainly these:
