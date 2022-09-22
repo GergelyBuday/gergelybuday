@@ -6,7 +6,7 @@ permalink: /about/
 
 This is formalisation org, a blog about formalising mathematics and programming languages.
 
-I am a teacher assistant at the Hungarian University of Agriculture and Life Sciences.
+I am Gergely Buday, a teacher assistant at the Hungarian University of Agriculture and Life Sciences.
 
 My research focuses on verified compilers for functional languages.
 
