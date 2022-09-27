@@ -95,7 +95,8 @@ In vim, we need to use CTRL-K and AN, as suggested in this snippet. See a full l
 ∃ TE existential quantor, exists
 λ l* the lambda operator
 ∈ (- element of
-+ (+ not an element, this did not go through for some reasons
++ (+ not an element, this did not work,
+     use ^Vu2209 instead for ∉, HOL4 will understand it
 ∩ (U union of sets
 ∪ U) meet of sets
 ⊆ (_ subset (might be equal)
