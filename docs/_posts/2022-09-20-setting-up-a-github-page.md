@@ -8,7 +8,7 @@ permalink: setting-up-a-github-page
 
 For running a GitHub Pages blog, you need mainly these:
 
-- setting A and AAAA records for your domain name: pointing to GitHub Pages' servers
+- setting DNS A and AAAA records for your domain name: pointing to GitHub Pages' servers
 - creating a GitHub repository and registering it for GitHub Pages
 - setting a TXT record to make a connection between your domain name and GitHub Pages
 - installing Ruby, Bundler and Jekyll on your machine
