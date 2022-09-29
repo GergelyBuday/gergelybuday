@@ -9,7 +9,7 @@ permalink: setting-up-a-github-page
 
 [Github Pages](https://pages.github.com/)
 is a simple way of generating static websites from 
-[markdown]i(https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)
+[markdown](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)
 files, using the 
 [Jekyll](https://jekyllrb.com/)
 software.
