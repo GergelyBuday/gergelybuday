@@ -5,6 +5,14 @@ date:   2022-09-20
 categories: technical 
 permalink: setting-up-a-github-page
 ---
+# Introduction
+
+[Github Pages](https://pages.github.com/)
+is a simple way of generating static websites from 
+[markdown]i(https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)
+files, using the 
+[Jekyll](https://jekyllrb.com/)
+software.
 
 For running a GitHub Pages blog, you need mainly these:
 
@@ -17,6 +25,14 @@ For running a GitHub Pages blog, you need mainly these:
 - testing your page on GitHub Pages
 
 # Setting DNS records for your domain name
+
+DNS is [Domain Name System](https://en.wikipedia.org/wiki/Domain_Name_System),
+a method to assign IP addresses to machine names. A DNS A record sets an 
+[IPv4](https://en.wikipedia.org/wiki/IPv4)
+address for a domain name like formalisation.org, an AAAA record registers
+an 
+[IPv6](https://en.wikipedia.org/wiki/IPv6) 
+address.
 
 I suggest you to do this first, as this takes time to go through DNS servers.
 For using your domain name for your blog, you need to set its A records to point to Github Pages' IPv4 addresses and AAAA records to its IPv6 addresses. The result should be this, using the dig command:
