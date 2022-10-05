@@ -91,14 +91,14 @@ In vim, we need to use CTRL-K and AN, as suggested in this snippet. See a full l
 ≥ >= greater or equal
 ⇔ == bi-implication, if and only if
 ≠ != not equal
-∀ AN universal quantor, for all
+∀ FA universal quantor, for all
 ∃ TE existential quantor, exists
 λ l* the lambda operator
 ∈ (- element of
 + (+ not an element, this did not work,
      use ^Vu2209 instead for ∉, HOL4 will understand it
-∩ (U union of sets
-∪ U) meet of sets
+∩ (U meet of sets
+∪ U) union of sets
 ⊆ (_ subset (might be equal)
 ⊂ (C proper subset (cannot be equal)
 ```
@@ -110,5 +110,16 @@ Inductive Even:
 End
 ```
 
+# Under the hood: parsing
 
+In functional programming, interesting data structures are built using the constructors of data types. But, of course, it would be cumbersome to write
+```
+APP (APP (APP (IDENT "COND", IDENT "P"), IDENT "Q"), IDENT "R")
+```
+instead of 
+```
+if P then Q else R
+```
+So HOL4 has a parser that translates the surface syntax into primitive constructors.
 
+# Lexing
