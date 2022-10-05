@@ -38,7 +38,7 @@ you should load these libraries by hand, in batch mode it is done automatically.
 the user interfaces derive the component list from the "open" declaration. The interactive mode is a read-eval-print-loop
 of the underlying SML compiler. The user interfaces are using this interactive loop.
 
-"new\_theory" defines the name of the theory and starts the session. The file name's prefix should coincide with the string given here, otherwise you get an error message. So here my file is trivialScript.sml .
+The command "new\_theory" defines the name of the theory and starts the session. The file name's prefix should coincide with the string given here, otherwise you get an error message. So here my file is trivialScript.sml .
 
 At the end of the file there is "export\_theory", which closes the session started with "new\_theory". Running Holmake will create a file that can be used from other script files, the same way as we imported system libraries with "open".
 
