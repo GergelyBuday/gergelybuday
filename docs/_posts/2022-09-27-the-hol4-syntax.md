@@ -198,7 +198,6 @@ The right-associative comma is the pair constructor. There's no need for an expl
 ```
 There is ∨ for logical or and its ASCII equivalent \/ . The :> operator is reverse function application: x :> f is f x. And it lets us write x :> g :> f for f(g(x)) . The =+ symbol is function update: (a =+ b) f updates f with value b at argument a . For logical and there is ∧ and its ASCII counterpart /\ . For two set of sets, A refines B if for every element set of A there is an element of B so that the former is a subset of the latter: for a ∈ A there is b ∈ B so that a ⊆ b . The infix equiv_on operator tells that a relation R is an equivalence relation on the underlying set S, that is, R is reflexive, symmetric and transitive. The expression X partitions Y holds when X is a set of sets, the partition of Y according to some equivalence relation R. For set membership and non-membership there is ∈ and ∉ and their ASCII notation IN and NOTIN .
 
-<!--
 ```
    (450)  TM  ::= TM "≼" TM  [<<=] | TM "<<=" TM   | TM "PERMUTES" TM
                 | TM "HAS_SIZE" TM   | TM "⊂" TM  [PSUBSET]
@@ -208,6 +207,14 @@ There is ∨ for logical or and its ASCII equivalent \/ . The :> operator is rev
                 | TM "⊆ᵣ" TM  [RSUBSET] | TM "RSUBSET" TM   | TM "≠" TM
                 | TM "<>" TM   | TM "=" TM
                     (non-associative)
+```
+The unicode symbol ≼ and its ASCII version &lt;&lt;= is for the list prefix partial order isPREFIX . 
+The infix operator PERMUTES tells that PERMUTES f dom if f is a bijection on dom. 
+For HAS\_SIZE, A HAS\_SIZE n if A is a finite set and has n elements. The notation for subset and
+proper subset is SUBSET and PSUBSET, and the usual symbols. For usual ordering relations HOL4 has
+the usual symbols. The operator RSUBSET is a subset relation for relations. Equality and non-equality is again the usual.
+
+<!--
    (460)  TM  ::= TM "$" TM  [_ fnapp] | TM "with" TM  [record update]
                 | TM ":=" TM  [record field update]
                 | TM "updated_by" TM  [functional record update]
