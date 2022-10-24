@@ -214,16 +214,32 @@ For HAS\_SIZE, A HAS\_SIZE n if A is a finite set and has n elements. The notati
 proper subset is SUBSET and PSUBSET, and the usual symbols. For usual ordering relations HOL4 has
 the usual symbols. The operator RSUBSET is a subset relation for relations. Equality and non-equality is again the usual.
 
-<!--
+```
    (460)  TM  ::= TM "$" TM  [_ fnapp] | TM "with" TM  [record update]
                 | TM ":=" TM  [record field update]
                 | TM "updated_by" TM  [functional record update]
                     (R-associative)
+```
+The dollar symbol is a low-precedence function application symbol: FACT $ SUC $ 2 + 3 = FACT(SUC(2+3)), spares a few parentheses.
+This is a Haskell notation. Other than solo dollar, dollar immediately followed by a possibly symbolic identifier returns a normal function that can be
+used as a function argument: ASCII tilde, ~ is negation, $~ is a usable name for a function argument. When the identifier is infix, dollar removes its infix status and the combined identifier can be used as a prefix function name. 
+
+The keyword with and symbolic identifier := can be used in a record field update: rec with fieldname := new\_value . Using
+updated\_by allows us to apply a function to a record field: bob with employed updated\_by $~ , this inverts the boolean field employed. And, it is right-associative.
+```
    (480)  TM  ::= TM "⧺" TM  [++] | TM "++" TM   | TM "+++" TM
                     (L-associative)
    (490)  TM  ::= TM "::" TM  [CONS] | TM "INSERT" TM
                 | TM "###" TM  [PAIR_REL] | TM "LEX" TM   | TM "##" TM
                     (R-associative)
+```
+The ASCII double plus, ++ operator and its Unicode variant ⧺ is list append. The triple plus +++ is an operator on relations: its type is
+:(α -> β -> bool) -> (γ -> δ -> bool) -> α + γ -> β + δ -> bool, so it creates a componentwise sum type for the two relations.
+
+The double colon :: is the cons operation as suggested: extending a list with an element on the left. The keyword INSERT is set insertion:
+1 INSERT {1;3} = {1;3} . The triple hash mark ### operates on two relations and gives back a relation that is of componentwise products of the
+original relations' base types: :α # γ -> β # δ -> bool , from :α -> β -> bool and :γ -> δ -> bool . 
+```
    (500)  TM  ::= TM "⊔" TM  [disjUNION] | TM "<+>" TM  [disjUNION]
                 | TM "DELETE" TM   | TM "DIFF" TM   | TM "∪" TM  [UNION]
                 | TM "UNION" TM   | TM "<*>" TM  [APPLICATIVE_FAPPLY]
@@ -237,6 +253,17 @@ the usual symbols. The operator RSUBSET is a subset relation for relations. Equa
    (601)  TM  ::= TM "×" TM  [CROSS] | TM "CROSS" TM   | TM "⊗" TM  [*,]
                 | TM "*," TM
                     (R-associative)
+```
+The <+> and its Unicode counterpart ⊔ is disjoint union for relations: for types :α -> bool and :β -> bool it gets :α + β -> bool. 
+The infix operator DELETE deletes an element from a set. The next one, DIFF is set difference. The meaning of UNION and its Unicode variant
+∪ is obviously set union. The infix operator <\*>, nicknamed APPLICATIVE\_FAPPLY applies all functions in a function list to a list of arguments and concatenates the resulting lists: [(λx. x + 2); (λx. x + 4)] <*> [1; 2; 3] = [3; 4; 5; 5; 6; 7] . 
+
+The Unicode minus sign seems to be just an alias to standard ASCII minus sign - . The ASCII plus + is addition for natural numbers, of type num.
+The infix operator RUNION or its Unicode equivalent ∪ᵣ lifts set union operation to relations, and so does RINTER and ∩ᵣ for intersection. 
+The infix INTER and its Unicode counterpart ∩ is obviously set intersection. The infix \\\\ is an operator on finite maps, it removes the right argument from the domain of the finite map on the left.
+
+The infix DIV is obviously natural number division, and ASCII star is natural number multiplication. The infix CROSS and its Unicode notation × creates a cross product of two sets, on other words, a set of pairs: :α # β -> bool . Remember that hash mark # is for the product type. The infix ASCII *, operator on natural numbers and its Unicode variant ⊗ allows us to encode two natural numbers in one through triangular numbers. It is possible then to decode the first and second number from this encoded value.
+```
    (650)  TM  ::= TM "%%" TM   | TM "MOD" TM     (L-associative)
    (700)  TM  ::= TM "**" TM   | TM "EXP" TM     (R-associative)
    (800)  TM  ::= TM "∘ᵣ" TM  [O] | TM "O" TM   | TM "∘" TM  [o]
@@ -437,7 +464,6 @@ the usual symbols. The operator RSUBSET is a subset relation for relations. Equa
      GSPEC f       ->  pred_set.GSPEC
      𝕌(:α)       ->  pred_set.UNIV: term_grammar.grammar
 ```
--->
 
 
 <!-- term grammar with explanation -->
