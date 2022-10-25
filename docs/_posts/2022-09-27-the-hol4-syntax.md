@@ -519,7 +519,7 @@ question: how to enter these Unicode symbols.
 In hol-vim, these symbols can be entered
 through digraphs. See the character combinations for them in 
 [holabs.vim](https://github.com/HOL-Theorem-Prover/HOL/blob/develop/tools/vim/holabs.vim) in HOL4's github repository. To enter mathematical symbols with digraphs, we need to push CTRL-K and then the two-letter digraph.
-See a full list of mathematical Unicode characters in hol-vim and their corresponding digraphs:
+Here is a full list of mathematical Unicode characters in hol-vim and their corresponding digraphs:
 ```
 ∧ AN conjunction
 ∨ OR disjunction
