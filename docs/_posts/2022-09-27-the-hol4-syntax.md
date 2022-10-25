@@ -308,13 +308,27 @@ The delimiters (| and |) and their Unicode equivalent ⦇ and ⦈ are for functi
                     [ListForm< _ record nil, _ record cons>]
                 | "(" TM ")"  [just parentheses, no term produced]
 ```
-The identifier univ and Unicode 𝕌 is for the universal set of a type. Its definition is ⊢ 𝕌(:α) = (λx. T) .
+The identifier univ and Unicode 𝕌 is for the universal set of a type. Its definition is ⊢ 𝕌(:α) = (λx.T), in other words, any element of the type is an element of the universal set. The usual dot notation is for record
+field selection, rec.fieldname . Square brackets with semicolons are for lists: type\_of ``[1;2;3]``; returns
+“:num list”. Curly braces with semicolons are for concrete sets: type_of ``{1;2;3}``; returns “:num -> bool”. Sets are modelled with their characteristic function on their base type. Curly braces with vertical bars allow us
+to write set comprehensions: ⊢ ∀s t. s DIFF t = {x | x ∈ s ∧ x ∉ t} . The usual hermite () is the only element of type one and the isomorphic type unit.
+
+
+ Record specifications and values can be written with <| and semicolons and |> : for a specification let's have 
+```
+Datatype: person = <| employed : bool ; age : num ; name : string |>
+End
+```
+ and for a value let's have 
+```
+<| age := 21; employed := F; name := "Layabout" |>
+```
+The following output does not convey new information about symbolic identifiers so I trimmed it:
 ```
    Known constants:
        _ fakeconst4.case,S10.case magic,7.default ! ## %% & () * ** *, + ++
      +++ , - /\ 0 :- :> < <<= <= <=/=> <=> <> = ==> > >= ? ?! @ ABS_DIFF
 ```
-This is a long part of term\_grammar output that does not convey new information on symbolic identifiers so I trimmed.
 <!--
      ABS_num ABS_prod ABS_sum AC ALL_DISTINCT ALL_EL AND_EL APPEND
      APPLICATIVE_FAPPLY APPLY_REDUNDANT_ROWS_INFO ARB ASM_MARKER ASSOC Abbrev
@@ -373,8 +387,7 @@ This is a long part of term\_grammar output that does not convey new information
      sum_CASE sum_size symmetric the_fun the_value total transitive tri
      trichotomous tri⁻¹ unint univ wellfounded ~ ¬ ² ³ Π ∅ ∅ᵣ ∑ ≠ 𝕌 𝕌ᵣ
 -->
-
-Most of the following I introduced earlier but has useful definitions that make them easier to remember:
+This section gives some help on assigning meaning to symbols:
 ```
    Overloading:
        <won't print>    ->  λ(x :α). list$CONS x (list$NIL :α list)
@@ -497,20 +510,16 @@ Most of the following I introduced earlier but has useful definitions that make 
 
 <!-- term grammar with explanation -->
 
-## Symbols
+## Unicode 
 
-The toughest part of a programming language is symbols, and HOL4 is no exception to this rule, especially with its extensible syntax.
+With a properly configured terminal connection, vim and font installation, the
+editor will display the above Unicode symbols properly. But there is a
+question: how to enter these Unicode symbols.
 
-# Unicode symbols
-
-For conjunction, we have seen the Unicode mathematical symbol. In hol-vim, these symbols can be entered
+In hol-vim, these symbols can be entered
 through digraphs. See the character combinations for them in 
-[holabs.vim](https://github.com/HOL-Theorem-Prover/HOL/blob/develop/tools/vim/holabs.vim) in HOL4's github repository. The file starts with the part defining coding for the conjunction symbol:
-```
-iab <buffer> /\ ∧
-"dig AN
-```
-In vim, we need to use CTRL-K and AN, as suggested in this snippet. See a full list of mathematical Unicode characters in hol-vim and their corresponding digraphs:
+[holabs.vim](https://github.com/HOL-Theorem-Prover/HOL/blob/develop/tools/vim/holabs.vim) in HOL4's github repository. To enter mathematical symbols with digraphs, we need to push CTRL-K and then the two-letter digraph.
+See a full list of mathematical Unicode characters in hol-vim and their corresponding digraphs:
 ```
 ∧ AN conjunction
 ∨ OR disjunction
