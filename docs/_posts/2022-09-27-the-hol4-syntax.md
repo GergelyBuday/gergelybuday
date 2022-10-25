@@ -266,12 +266,24 @@ The infix DIV is obviously natural number division, and ASCII star is natural nu
 ```
    (650)  TM  ::= TM "%%" TM   | TM "MOD" TM     (L-associative)
    (700)  TM  ::= TM "**" TM   | TM "EXP" TM     (R-associative)
+```
+The symbolic identifier %% looks like a modulo operation before MOD but it is in fact a derived operation: CEILING_MOD m n = (n - m MOD n) MOD n .
+MOD is the usual modulo operation. The standard EXP and its symbolic counterpart \*\* is natural number exponentiation. 
+```
    (800)  TM  ::= TM "∘ᵣ" TM  [O] | TM "O" TM   | TM "∘" TM  [o]
                 | TM "o" TM
                     (R-associative)
+```
+Capital O and its symbolic counterpart ∘ᵣ is relation compióosition, while small o and Unicode ∘ is function composition.
+```
    (899)  TM  ::= TM ":" TY  (type annotation)
    (900)  TM  ::= "&" TM   | "-" TM  [numeric_negate] | "¬" TM   | "~" TM
    (2000) TM  ::= TM TM  (function application)   (L-associative)
+```
+With a weak precedence, colon : is for type annotation. 
+The standard minus sign is numeric negation. The ASCII tilde ~ and its Unicode counterpart ¬ is for boolean negation.
+Function application, writing terms consecutively with only whitespace has a low precedence to allow constructing arguments without parentheses.
+```
    (2100) TM  ::= TM "³"   | TM "²"   | TM "ᵀ"  [relinv] | TM "^="  [EQC]
                 | TM "꙳"  [RTC] | TM "^*"  [RTC] | TM "⁺"  [TC]
                 | TM "^+"  [TC]
@@ -279,6 +291,13 @@ The infix DIV is obviously natural number division, and ASCII star is natural nu
                     [  combinpp.toplevelupd]
                 | TM "(|" LTM<  combinpp.nil,  combinpp.cons,;> "|)"
                     [  combinpp.toplevelupd]
+```
+The superscripts ()³ and ()² are obviously cubic and quadratic powers. The superscript T, Unicode ()ᵀ is the inverse of a relation. 
+The following are closures of a relation of type A x A , for it is meaningful if we can compose the relation with itself. Equality closure is ^=, 
+reflexive transitive closure is ^* and Unicode ꙳, and transitive closure is ^+ or Unicode ()⁺ .
+
+The delimiters (| and |) and their Unicode equivalent ⦇ and ⦈ are for function update: (\x.x) (| 2 |-> 3 |) creates a function that is the identity function on natural numbers, except that for argument 2 it gives back 3. And so does the Unicode notation (λx. x)⦇2 ↦ 3⦈ .
+```
    (2200) TM  ::= "𝕌" TM   | "univ" TM
    (2500) TM  ::= TM "." TM  [record field selection]   (L-associative)
           TM  ::= "[" LTM<NIL,CONS,;> "]"  [ListForm<NIL,CONS>]
@@ -288,9 +307,15 @@ The infix DIV is obviously natural number division, and ASCII star is natural nu
                 | "<|" LTM< _ record nil, _ record cons,;> "|>"
                     [ListForm< _ record nil, _ record cons>]
                 | "(" TM ")"  [just parentheses, no term produced]
+```
+The identifier univ and Unicode 𝕌 is for the universal set of a type. Its definition is ⊢ 𝕌(:α) = (λx. T) .
+```
    Known constants:
        _ fakeconst4.case,S10.case magic,7.default ! ## %% & () * ** *, + ++
      +++ , - /\ 0 :- :> < <<= <= <=/=> <=> <> = ==> > >= ? ?! @ ABS_DIFF
+```
+This is a long part of term\_grammar output that does not convey new information on symbolic identifiers so I trimmed.
+<!--
      ABS_num ABS_prod ABS_sum AC ALL_DISTINCT ALL_EL AND_EL APPEND
      APPLICATIVE_FAPPLY APPLY_REDUNDANT_ROWS_INFO ARB ASM_MARKER ASSOC Abbrev
      BIGINTER BIGUNION BIJ BIT1 BIT2 BOUNDED BUTFIRSTN BUTLAST BUTLASTN CARD
@@ -347,6 +372,10 @@ The infix DIV is obviously natural number division, and ASCII star is natural nu
      schroeder_close set setFST setL setR setSND some splitAtPki stmarker
      sum_CASE sum_size symmetric the_fun the_value total transitive tri
      trichotomous tri⁻¹ unint univ wellfounded ~ ¬ ² ³ Π ∅ ∅ᵣ ∑ ≠ 𝕌 𝕌ᵣ
+-->
+
+Most of the following I introduced earlier but has useful definitions that make them easier to remember:
+```
    Overloading:
        <won't print>    ->  λ(x :α). list$CONS x (list$NIL :α list)
                             λ(h :α) (l :α list).
