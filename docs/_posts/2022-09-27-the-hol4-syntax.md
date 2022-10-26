@@ -436,7 +436,8 @@ val _ = set_fixity UnicodeChars.universal_set (Prefix 2200)
 val _ = overload_on ("", “\x:'a itself. UNIV : 'a set”)
 ```
 so non-printing has an internal technical reason here: that is, pretty printing.
-```
+
+<!--
      %%                 ->  arithmetic$CEILING_MOD
      &                  ->  arithmetic$nat_elim__magic
      ()                 ->  one$one
@@ -489,9 +490,16 @@ so non-printing has an internal technical reason here: that is, pretty printing.
      SINGL              ->  λ(x :α). list$CONS x (list$NIL :α list)
      SOME_EL            ->  (list$EXISTS :(α -> bool) -> α list -> bool)
      Wellfounded        ->  (prim_rec$wellfounded :(α -> α -> bool) -> bool)
+-->
+```
      \\                 ->  arithmetic$CEILING_DIV
                             (relation$RDOM_DELETE :(α -> β -> bool) ->
                                                    α -> α -> β -> bool)
+```
+The symbolic identifier \\\\ overloads for two purposes: for the arithmetic CEILING\_DIV: 
+CEILING_DIV m n = (m + (n - 1)) DIV n and
+RDOM\_DELETE, which removes an element from the domain, i.e. the left supporting set of a relation.
+<!--
      _ inject_number    ->  arithmetic$nat_elim__magic
      case               ->  (list$list_CASE :α list ->
                                              β -> (α -> α list -> β) -> β)
@@ -527,17 +535,33 @@ so non-printing has an internal technical reason here: that is, pretty printing.
      setSND             ->  pair$PAIR_SET
                               (combin$K (λ(x :β). bool$F) :α -> β -> bool)
                               (min$= :β -> β -> bool)
+-->
+```
      tri⁻¹              ->  numpair$invtri
+```
+The Unicode superscript -1 is the inverse of the triangle number function defined in 
+HOL/src/num/extra_theories/numpairScript.sml .
+<!--
      univ               ->  λ(x :α itself). 𝕌(:α)
      ¬                  ->  bool$~
      ²                  ->  λ(x :num). arithmetic$EXP x (2n :num)
      ³                  ->  λ(x :num). arithmetic$EXP x (3n :num)
+-->
+```
      Π                  ->  (pred_set$PROD_IMAGE :(α -> num) ->
                                                   (α -> bool) -> num)
      ∅                  ->  (pred_set$EMPTY :α -> bool)
      ∅ᵣ                 ->  (relation$EMPTY_REL :α -> α -> bool)
      ∑                  ->  (pred_set$SUM_IMAGE :(α -> num) ->
                                                  (α -> bool) -> num)
+```
+Capital Pi is the usual product on natural numbers, whose first argument is a number-valued function on domain α that is corresponding to the formula, and the second argument is the characteristic function on the same domain 
+α representing the set the production goes over.
+
+Unicode ∅ and ∅ᵣ is for the empty set and the empty relation, respectively.
+
+Capital Sigma is similar in its arguments to Pi, but this is for summing natural numbers.
+<!--
      ≠                  ->  λ(x :α) (y :α). bool$~ (min$= x y)
      𝕌                  ->  λ(x :α itself). 𝕌(:α)
      𝕌ᵣ                 ->  (relation$RUNIV :α -> β -> bool)
@@ -548,7 +572,7 @@ so non-printing has an internal technical reason here: that is, pretty printing.
      HIDDEN: s       ->  hide-printer
      GSPEC f       ->  pred_set.GSPEC
      𝕌(:α)       ->  pred_set.UNIV: term_grammar.grammar
-```
+-->
 
 
 <!-- term grammar with explanation -->
