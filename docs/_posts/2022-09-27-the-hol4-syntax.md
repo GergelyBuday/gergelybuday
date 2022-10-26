@@ -387,13 +387,56 @@ The following output does not convey new information about symbolic identifiers 
      sum_CASE sum_size symmetric the_fun the_value total transitive tri
      trichotomous tri⁻¹ unint univ wellfounded ~ ¬ ² ³ Π ∅ ∅ᵣ ∑ ≠ 𝕌 𝕌ᵣ
 -->
-This section gives some help on assigning meaning to symbols:
+The next section gives some help on assigning meaning to symbols. I omit the already discussed symbolic identifiers and 
+alphabetic identifiers that are easy to find in the source code. 
+
+First, there are some spooky identifiers that wouldn't print:
 ```
    Overloading:
        <won't print>    ->  λ(x :α). list$CONS x (list$NIL :α list)
                             λ(h :α) (l :α list).
                                 bool$~ (bool$IN h (list$LIST_TO_SET l))
                             λ(x :α itself). 𝕌(:α)
+```
+A properly constructed grep command gives us the empty string definitions for these:
+```
+$ grep 'overload_on.*""' -R HOL/src
+HOL/src/pred_set/src/pred_setScript.sml:val _ = overload_on ("", “\x:'a itself. UNIV : 'a set”)
+HOL/src/list/src/listScript.sml:val _ = overload_on ("", “\h:'a l:'a list. ~(h IN LIST_TO_SET l)”)
+HOL/src/list/src/listScript.sml:val _ = overload_on("", “\x:'a. [x]”)
+```
+The first thing in the term_grammar output that won't print is the [x] notation for having a one-element list, see the third line in grep output.
+
+The second non-printing grammar element in the term grammar is the second in grep output. I give context to it in 
+HOL/src/list/src/listScript.sml :
+
+```
+val _ = overload_on ("", “\h:'a l:'a list. ~(h IN LIST_TO_SET l)”)
+  (* last over load here causes the term ~(h IN LIST_TO_SET l) to not print
+     using overloads.  In particular, this prevents the existing overload for
+     NOTIN from firing in this type instance, and allows ~MEM a l to print
+     because the pretty-printer will traverse into the negated term (printing
+     the ~), and then the MEM overload will "fire".
+  *)
+```
+So, ~MEM is expressing that an element does not appear in a list, converting the list to a set internally.
+
+Digging the code for the third we meet a technicality in HOL/src/pred_set/src/pred_setScript.sml, the first hit in grep output:
+
+```
+val _ = overload_on ("univ", ``\x:'a itself. UNIV : 'a set``)
+val _ = set_fixity "univ" (Prefix 2200)
+
+val _ = overload_on (UnicodeChars.universal_set, ``\x:'a itself. UNIV: 'a set``)
+val _ = set_fixity UnicodeChars.universal_set (Prefix 2200)
+(* the overloads above are only for parsing; printing for this is handled
+   with a user-printer.  (Otherwise the fact that the x is not bound in the
+   abstraction produces ARB terms.)  To turn printing off, we overload the
+   same pattern to "" *)
+val _ = overload_on ("", “\x:'a itself. UNIV : 'a set”)
+```
+so non-printing has an internal technical reason here: that is, pretty printing.
+```
      %%                 ->  arithmetic$CEILING_MOD
      &                  ->  arithmetic$nat_elim__magic
      ()                 ->  one$one
