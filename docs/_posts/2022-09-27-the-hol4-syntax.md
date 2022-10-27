@@ -153,7 +153,7 @@ Characters in this class, unless there is a symbolic identifier defined with the
 ```
 # Whitespace
 
-Space, Carriage Return, Line Feed, Tab and Form Feed are separators. They are not interpreted.
+Space, Carriage Return, Line Feed, Tab and Form Feed are separators. 
 
 # Numbers
 
