@@ -117,7 +117,53 @@ val it =
 Here I explain only non-standard notation. At the beginning we see the notation for function, sum and record types, with record type being the somewhat unusual hash mark, not
 the standard star. All these are right-associative, A op B op C means A op (B op C). The ind type is the one for individuals, as we know it in formal logic. For any type, α itself is a one-element type whose element represents the type. Its role is technical in building more complex types like the fixed width word type. The type num is the type of natural numbers. The type one is the same as the unit type with the only element (). Type α recspace is again a technical type used in the type definition package, holding finitely branching recursive types built from subsets of α. For an expert description see 
 [an old mail of John Harrison](https://hol-info.narkive.com/ozgDo69L/recspace).
+
+Type variables: for input syntax, type variables are possibly a prime followed by an alphanumeric string: 'a 'foo 'A11 . A prime followed by a single lower case latin letter is translated to a lowercase greek letter in output. Lambda is omitted, because of its special status in higher order logic, namely, the lambda operator. 
+The input syntax 'l is translated to μ, and so on, until 'y. Directly entering lowercase greek letters is
+also possible. Caveat: do not use the leading prime for them.
+
 ## Lexing 
+
+HOL4 variable names should be identifiers: 
+- alphanumerics with leading letter and possibly underscores inside
+- symbolic ASCII and Unicode identifiers: not letter and not digit Unicode characters are regarded as symbolic
+
+# Dollar
+
+The dollar has a number of uses: single $ is a low-precedence right-associative function application operator borrowed from Haskell: FACT $ SUC $ 2 + 3 = FACT(SUC(2+3)) .
+Starting with $ only $-only symbolic identifiers are possible: $, \$$, \$\$$ ... . We can get rid of infix and other special syntax status of identifiers with a prefixing dollar: $< . Without $ HOL4 gives an error message, but this works:
+
+```
+> type_of ``$<``;
+val it = “:num -> num -> bool”: hol_type
+```
+This is useful when we want to use the function as an argument. Last, $ is used as a separator between theory name and identifier, forming a long identifier: bool$COND .
+
+# Non-aggregeting characters
+
+Characters in this class, unless there is a symbolic identifier defined with them, are lexed separately: parentheses, curly braces and square brackets: () {} [], tilde, dot, comma, semicolon and hyphen: ~ . , ; - . So, (( +; and -+ are treated as two characters. Non-aggregating Unicode characters are:
+```
+¬ U+00AC ⟨ U+27E8
+⌈ U+2308 ⟩ U+27E9
+⌉ U+2309 ⦃ U+2983
+⌊ U+230A ⦄ U+2984
+⌋ U+230B ⦇ U+2987
+⟦ U+27E6 ⦈ U+2988
+⟧ U+27E7
+```
+# Whitespace
+
+Space, Carriage Return, Line Feed, Tab and Form Feed are separators. They are not interpreted.
+
+# Numbers
+
+A string of digits is a number. The underscore is a pseudo-digit to give spacing if needed: 3\_000\_000 .
+There is postfix notation for the num and the int type: 3n, 3i .
+For hexadecimal and binary numbers there are prefixal forms 0xAF12 and 0b1110 . For hexadecimals, besides A-F, lowercase a-f can be used as well.
+
+# Comments
+
+Comments are written with standard SML delimiters: (* This is a comment *)
 
 ## Parsing
 
@@ -281,8 +327,9 @@ Capital O and its symbolic counterpart ∘ᵣ is relation compióosition, while 
    (2000) TM  ::= TM TM  (function application)   (L-associative)
 ```
 With a weak precedence, colon : is for type annotation. 
+Ampersand, &, is for converting from num to int, provided integerTheory is loaded. It is also of internal use for nat\_elim\_\_magic.
 The standard minus sign is numeric negation. The ASCII tilde ~ and its Unicode counterpart ¬ is for boolean negation.
-Function application, writing terms consecutively with only whitespace has a low precedence to allow constructing arguments without parentheses.
+Function application, writing terms consecutively with only whitespace has a high precedence to allow one-argument function applications to write without parentheses.
 ```
    (2100) TM  ::= TM "³"   | TM "²"   | TM "ᵀ"  [relinv] | TM "^="  [EQC]
                 | TM "꙳"  [RTC] | TM "^*"  [RTC] | TM "⁺"  [TC]
