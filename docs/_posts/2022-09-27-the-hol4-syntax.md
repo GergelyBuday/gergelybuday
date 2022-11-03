@@ -123,9 +123,18 @@ We start by covering the non-standard notation. At the beginning we see the nota
 the standard star in SML. All these are right-associative (i.e. `A op B op C` means `A op (B op C)`). The `ind` type is the one for individuals, as we know it in formal logic. For any type, `α` itself is a one-element type whose element represents the type. Its role is technical in building more complex types like the fixed width word type. The type `num` is the type of natural numbers. The type `one` is the same as the unit type with the only element (). Type `α recspace` is again a technical type used in the type definition package, holding finitely branching recursive types built from subsets of `α`. For an expert description see 
 [an old mail of John Harrison](https://hol-info.narkive.com/ozgDo69L/recspace).
 
-Type variables: for input syntax, type variables are possibly a prime followed by an alphanumeric string: `'a 'foo 'A11`. A prime followed by a single lower case latin letter is translated to a lowercase greek letter in output. Lambda is omitted, because of its special status in higher order logic, namely, the lambda operator. 
+# Type variables 
+For input syntax, type variables are possibly a prime followed by an alphanumeric string: `'a 'foo 'A11`. A prime followed by a single lower case latin letter is translated to a lowercase greek letter in output. Lambda is omitted, because of its special status in higher order logic, namely, the lambda operator. 
 The input syntax `'l` is translated to `μ`, and so on, until `'y`. Directly entering lowercase greek letters is
 also possible. Caveat: do not use the leading prime for them.
+
+# Type constraint
+
+You might need a leading space before a type constraint so the system would not try to interpret the leading colon as part of the previous symbol:
+```
+$= :bool->bool->bool
+```
+
 
 ## Lexing 
 
@@ -142,7 +151,9 @@ Starting with $ only $-only symbolic identifiers are possible: $, \$$, \$\$$ ...
 > type_of ``$<``;
 val it = “:num -> num -> bool”: hol_type
 ```
-This is useful when we want to use the function as an argument. Last, $ is used as a separator between theory name and identifier, forming a long identifier: bool$COND .
+This is useful when we want to use the function as an argument. An alternative syntax for this is using parentheses: (<).
+
+ Last, $ is used as a separator between theory name and identifier, forming a long identifier: bool$COND .
 
 # Non-aggregeting characters
 
@@ -180,6 +191,45 @@ instead of
 ```
 if P then Q else R
 ```
+
+# Overloading
+
+HOL4 maintains an overload map from strings to lists of terms for parsing, and another one in the
+opposite direction for prettyprinting: from lists of terms to identifiers . This allows to use + for natural numbers, integers and words. Naturally, the use of overloaded terms might require type constraints.
+
+# Functions with special syntax
+
+Functions mostly use curried postfix syntax for arguments: f x y z for a three-argument function f.
+But there is a possibility to use binder, prefix, suffix, infix, closefix and mixfix syntax.
+
+A binder binds a variable. Technically, due to Church, this is done on applying a binder constant to a lambda abstraction. So ∀x.M is ∀(\\x.M) . Consecutive application of the same binder can be shorthanded with only one instance of the binder: ∀x y z.M .
+
+Infix operator op works as A op B. It can be left-associative, right-associative or non-associative.
+
+For prefix operations, standard function application is a good example: f x .
+
+Relation closures are good examples of suffix operators: R^+ for transitive closure of R.
+
+Closefix operators are for delimiters: we can use [\| x \|] for a denotation semantics of x .
+
+For mixfix syntax, the if-then-else clause and the [ t1 / t2 ] t3 notation for term 
+substitution is a good example.
+
+# Quotation and antiquotation
+
+Quotations are of type 'a frag list and have the concrete syntax delimited with backticks: \`f x = 3\`.
+Parse.Term is of type term quotation -> term and it creates a term of a quotation.
+
+A direct way of constructing such a term is to use double quotations: \`\`f x = 3\`\` . If the expression is meant to be a type, then it should begin with a colon: \`\`:'a -> bool\`\`.
+
+An advantage of quotations is the free use of newlines and backslash characters.
+
+The escape character in quotations is the caret: ^ . The ^(t) syntax is for antiquotations: its aim
+is to embed ML type or term expressions. If the expression is an ML identifier, then the parentheses
+can be ommitted altogether.
+
+# Term grammar
+
 So HOL4 has a parser that translates the surface syntax into primitive constructors. Similarly to type\_grammar, function term\_grammar gives us the current state of the grammar used in parsing. I inject explanations to the output of the command to make it understandable.
 ```
 > term_grammar();
