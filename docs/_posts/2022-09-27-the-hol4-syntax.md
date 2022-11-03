@@ -8,7 +8,7 @@ permalink: the-hol4-syntax
 
 ## Introduction
 
-It's just syntax, said once a trained mathematician, and this has a grain of truth. Different higher-order theorem provers
+<q>It's just syntax</q>, said once a trained mathematician, and this has a grain of truth. Different higher-order theorem provers
 do not differ too much in their definitional mechanisms, only in concrete syntax. Still, if you want to master them,
 syntax is essential.
 
@@ -30,22 +30,23 @@ QED
 
 val _ = export_theory();
 ```
-With open we can refer to existing HOL4 libraries. For an extensive documentation of libraries, see 
+With `open` we can refer to existing HOL4 libraries. For an extensive documentation of libraries, see 
 the [HOL Reference Page](https://hol-theorem-prover.org/kananaskis-14-helpdocs/help/HOLindex.html). 
 
 There are two main modes of using HOL4, the interactive mode that is helped with the hol-vim, emacs hol mode or the Visual Studio Code extension, and the batch mode, that is, running your script files through Holmake. In the interactive mode
-you should load these libraries by hand, in batch mode it is done automatically. Interactively the keyword is "load", but
-the user interfaces derive the component list from the "open" declaration. The interactive mode is a read-eval-print-loop
+you should load these libraries by hand, in batch mode it is done automatically. To do so interactively, one must use the keyword `load`, but
+the user interfaces derive the component list from the `open` declaration. The interactive mode is a read-eval-print-loop
 of the underlying SML compiler. The user interfaces are using this interactive loop.
 
-The command "new\_theory" defines the name of the theory and starts the session. The file name's prefix should coincide with the string given here, otherwise you get an error message. So here my file is trivialScript.sml .
+The command `new_theory` defines the name of the theory and starts the session. The file name's prefix should coincide with the string given here, otherwise you get an error message. So here my file is `trivialScript.sml`.
 
-At the end of the file there is "export\_theory", which closes the session started with "new\_theory". Running Holmake will create a file that can be used from other script files, the same way as we imported system libraries with "open".
+The file ends with `export_theory`, which closes the session started with `new_theory`. Running Holmake will create a file that can be used from other script files, the same way as we imported system libraries with "open". <!-- This line is not clear -->
 
-Between these there is a theorem and its proof in a Theorem-Proof-QED block. These keywords should start at the beginning of the line. We should give a name to the theorem, afterwards we can refer to it by this name. After theorem we can give the goal we would like to prove, after Proof there is the tactic that is meant to 
-prove the goal.
+Between these there is a theorem and its proof in a Theorem-Proof-QED block. These keywords should start at the beginning of the line. We should give a name to the theorem, afterwards we can refer to it by this name. After `theorem`, we can give the goal we would like to prove, and after `Proof`, one can write the tactic that is meant to prove the goal.
 
 ## Definitions
+
+### Datatypes
 
 The basic definitions of HOL4 are datatypes, functions, inductive relations, records (ADD LIST HERE).
 
@@ -53,7 +54,7 @@ A datatype is an algebraic type, familiar from functional languages. For a binar
 ```
 Datatype `bintree = Leaf | Node bintree 'a bintree`
 ```
-in HOL4 which is the equivalent of 
+in HOL4, which is the equivalent of 
 ```
 datatype 'a bintree = Leaf | Node of 'a bintree * 'a * 'a bintree
 ```
@@ -62,7 +63,9 @@ in Standard ML. As we can see, the HOL4 definition is more terse. Be aware of th
 Datatype: btree = LEAF | NODE btree 'a btree
 End
 ```
-As before, the Datatype and End keywords should start their lines.
+As before, the `Datatype` and `End´ keywords should start their lines.
+
+### Recursive Functions
 
 Defining a recursive function has this syntax:
 ```
@@ -73,6 +76,8 @@ Definition fibonacci_def:
 End
 ```
 As usual, the order of patterns matter, the first has precedence over the others, and so on. Also usual is the position of Definition and End at the start of the line.
+
+### Inductive Relations
 
 For defining inductive relations the syntax is:
 ```
@@ -86,7 +91,7 @@ End
 
 <!-- type grammar with explanation -->
 
-HOL4 gives us its type grammar with the command type\_grammar:
+HOL4 gives us its type grammar with the command `type_grammar`:
 ```
 > type_grammar();
 val it =
@@ -114,13 +119,13 @@ val it =
      unit             = one$one               : type_grammar.grammar
 
 ```
-Here I explain only non-standard notation. At the beginning we see the notation for function, sum and record types, with record type being the somewhat unusual hash mark, not
-the standard star. All these are right-associative, A op B op C means A op (B op C). The ind type is the one for individuals, as we know it in formal logic. For any type, α itself is a one-element type whose element represents the type. Its role is technical in building more complex types like the fixed width word type. The type num is the type of natural numbers. The type one is the same as the unit type with the only element (). Type α recspace is again a technical type used in the type definition package, holding finitely branching recursive types built from subsets of α. For an expert description see 
+We start by covering the non-standard notation. At the beginning we see the notation for function, sum and record types, with record type being the somewhat unusual hash mark, not
+the standard star in SML. All these are right-associative (i.e. `A op B op C` means `A op (B op C)`). The `ind` type is the one for individuals, as we know it in formal logic. For any type, `α` itself is a one-element type whose element represents the type. Its role is technical in building more complex types like the fixed width word type. The type `num` is the type of natural numbers. The type `one` is the same as the unit type with the only element (). Type `α recspace` is again a technical type used in the type definition package, holding finitely branching recursive types built from subsets of `α`. For an expert description see 
 [an old mail of John Harrison](https://hol-info.narkive.com/ozgDo69L/recspace).
 
 # Type variables 
-For input syntax, type variables are possibly a prime followed by an alphanumeric string: 'a 'foo 'A11 . A prime followed by a single lower case latin letter is translated to a lowercase greek letter in output. Lambda is omitted, because of its special status in higher order logic, namely, the lambda operator. 
-The input syntax 'l is translated to μ, and so on, until 'y. Directly entering lowercase greek letters is
+For input syntax, type variables are possibly a prime followed by an alphanumeric string: `'a 'foo 'A11`. A prime followed by a single lower case latin letter is translated to a lowercase greek letter in output. Lambda is omitted, because of its special status in higher order logic, namely, the lambda operator. 
+The input syntax `'l` is translated to `μ`, and so on, until `'y`. Directly entering lowercase greek letters is
 also possible. Caveat: do not use the leading prime for them.
 
 # Type constraint
