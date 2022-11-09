@@ -46,6 +46,9 @@ Between these there is a theorem and its proof in a Theorem-Proof-QED block. The
 
 ## Definitions
 
+The following user-friendly syntax elements are mentioned in the Description index as <q>special syntactic 
+forms for scripts </q> .
+
 ### Datatypes
 
 The basic definitions of HOL4 are datatypes, functions, inductive relations, records (ADD LIST HERE).
@@ -77,6 +80,19 @@ End
 ```
 As usual, the order of patterns matter, the first has precedence over the others, and so on. Also usual is the position of Definition and End at the start of the line.
 
+When the system cannot prove automatically that the function definition always terminates, so the function is total, we need to submit a termination proof. Its syntax involves the keyword `Termination` at the beginning of a line following the function definition:
+
+```
+Definition qsort_def:
+  (qsort ord [] = []) /\
+  (qsort ord (h::t) =
+    qsort ord (FILTER (\x. ord x h) t) ++ [h] ++
+    qsort ord (FILTER (\x. ~(ord x h)) t))
+Termination
+  WF_REL_TAC `measure (LENGTH o SND)` THEN cheat
+End
+```
+
 ### Inductive Relations
 
 For defining inductive relations the syntax is:
@@ -85,6 +101,47 @@ Inductive Even:
   even 0 ∧
   ∀n. even n ⇒ even (n+2)
 End
+```
+
+### Records
+
+We can define records as 
+
+```
+Datatype: person = <| employed : bool ; age : num ; name : string |>
+End
+```
+ and for a value let's have
+```
+<| age := 21; employed := F; name := "Layabout" |>
+```
+For field access, 
+
+
+
+### Case expressions
+
+### Type abbreviations
+
+
+
+### Triviality
+
+For locally important theorems, we can use an attribute local for Theorem definitions:
+```
+Theorem fermat[local]:
+```
+These are not exported, only used locally. The user-friendly syntax for this is
+```
+Triviality fermat:
+```
+with the usual `Proof` and `QED`.
+
+### Overloading
+
+For overloading, there is the syntax
+```
+Overload "%%" = “CEILING_MOD”;
 ```
 
 ## Types
