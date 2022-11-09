@@ -51,8 +51,6 @@ forms for scripts </q> .
 
 ### Datatypes
 
-The basic definitions of HOL4 are datatypes, functions, inductive relations, records (ADD LIST HERE).
-
 A datatype is an algebraic type, familiar from functional languages. For a binary tree, we can write
 ```
 Datatype `bintree = Leaf | Node bintree 'a bintree`
@@ -115,15 +113,28 @@ End
 ```
 <| age := 21; employed := F; name := "Layabout" |>
 ```
-For field access, 
-
-
+For field access, `person_age` is the syntax. For field update, `bob with employed updated_by f` is written, where f is the function
+that is used for a new value of the field `employed`.
 
 ### Case expressions
-
+Case expressions are for pattern matching:
+```
+case n of
+  0 => "none"
+| 1 => "one"
+| 2 => "two"
+| _ => "many"
+```
 ### Type abbreviations
 
-
+Compound types can be abbreviated with the new syntax:
+```
+Type set = “:’a -> bool”
+```
+This is an input-only syntax if used this way. However, if you use the attribute `pp`, which is for pretty-printing, then HOL4 will print the type abbreviation in its output properly:
+```
+Type set[pp] = “:’a -> bool”
+```
 
 ### Triviality
 
