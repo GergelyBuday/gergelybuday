@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "The HOL4 Syntax"
-date:   2022-09-27 
+date:   2022-11-9 
 categories: hol4
 permalink: the-hol4-syntax
 ---
